@@ -33,7 +33,6 @@ class BlogController extends Controller
         $formFields = $request->validate([
             'title' =>  ['required', Rule::unique('blogs', 'title') ],
             'description' => 'required',
-            'location' => 'required',
             'tags' => 'required',
         ]);
 
