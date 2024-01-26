@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FeedController;
 use Illuminate\Routing\Route as RoutingRoute;
 
 /*
@@ -61,6 +62,9 @@ use Illuminate\Routing\Route as RoutingRoute;
 
     Route::post('/blogs/{blogId}/comments', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->middleware('auth')->name('comments.destroy');
+
+
+    Route::get('/feed', [FeedController::class, 'index']);
 
 
     // index - Laat alle blogs zien
