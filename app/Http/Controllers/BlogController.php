@@ -16,10 +16,10 @@ class BlogController extends Controller
     }
 
     //show enkele blog
-    public function show(Blog $blog) {
-        return view('blogs.show', [
-            'blog' => $blog
-        ]);
+    public function show($blogId)
+    {
+        $blog = Blog::with('comments')->findOrFail($blogId);
+        return view('blogs.show', ['blog' => $blog]);
     }
 
     //laat formulier zien

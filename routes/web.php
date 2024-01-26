@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Routing\Route as RoutingRoute;
 
 /*
@@ -58,7 +59,9 @@ use Illuminate\Routing\Route as RoutingRoute;
     // log gebruiker in
     Route::match(['get', 'post'], '/users/authenticate', [UserController::class, 'authenticate']);
 
-   
+    Route::post('/blogs/{blogId}/comments', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->middleware('auth')->name('comments.destroy');
+
 
     // index - Laat alle blogs zien
     // show - Laat enkele blogs zien

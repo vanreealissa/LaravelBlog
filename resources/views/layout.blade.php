@@ -12,6 +12,10 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
+        <link rel="stylesheet" href="{{ url('css/styles-dark.css') }}" id="dark-theme">
+        <link rel="stylesheet" href="{{ url('css/styles-light.css') }}" id="light-theme">
+
+        <script src="{{ asset('js/theme-switch.js') }}"></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <script src="//unpkg.com/alpinejs" defer></script>
         <script>
