@@ -9,6 +9,7 @@ use Spatie\Feed\FeedItem;
 use App\Models\Blog;
 
 class FeedController extends Controller
+
 {
     public function index()
     {

@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Http\Request;
+use Spatie\Feed\Http\FeedController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
-use App\Http\Controllers\FeedController;
 use Illuminate\Routing\Route as RoutingRoute;
 
 /*
@@ -67,7 +67,7 @@ use Illuminate\Routing\Route as RoutingRoute;
     Route::get('/feed', [FeedController::class, 'index']);
 
 
-    // index - Laat alle blogs zien
+    // index - Laat alle blogs zien 
     // show - Laat enkele blogs zien
     // create - laat formulier zien om een blog te maken
     // store - sla nieuwe blog op

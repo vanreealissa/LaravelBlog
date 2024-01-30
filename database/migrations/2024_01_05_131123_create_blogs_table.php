@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('blogs', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('title');
-            $table->string('foto')->nullable();
-            $table->string('tags');
-            $table->string('location');
-            $table->longText('description');
-            $table->timestamps();
-        });
+        // Controleer eerst of de kolom 'tags' nog niet bestaat
+        if (!Schema::hasColumn('blogs', 'tags')) {
+            Schema::table('blogs', function (Blueprint $table) {
+                // Voeg de 'tags' kolom toe als deze nog niet bestaat
+                $table->string('tags')->nullable();
+            });
+        }
     }
 
     /**
@@ -28,6 +25,13 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('blogs');
+        // Verwijder de 'tags' kolom als deze bestaat
+        if (Schema::hasColumn('blogs', 'tags')) {
+            Schema::table('blogs', function (Blueprint $table) {
+                $table->dropColumn('tags');
+            });
+        }
     }
 };
+
+

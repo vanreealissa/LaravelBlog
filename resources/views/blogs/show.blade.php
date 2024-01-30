@@ -68,7 +68,7 @@
                 <button type="submit">plaats reactie</button>
             </form>
         @else
-            <p> <a href="{{ route('login') }}">log in</a> om te reageren    .</p>
+            <p> <a href="{{ route('login') }}">log in</a> om te reageren.</p>
         @endauth
 @endsection
 
