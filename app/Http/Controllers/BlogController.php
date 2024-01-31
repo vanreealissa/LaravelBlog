@@ -33,7 +33,7 @@ class BlogController extends Controller
         $formFields = $request->validate([
             'title' =>  ['required', Rule::unique('blogs', 'title') ],
             'description' => 'required',
-            'tags' => 'required',
+            //'tags' => 'required',
         ]);
 
         if($request->hasFile('foto')) {
@@ -61,7 +61,7 @@ class BlogController extends Controller
             'title' =>  ['required'],
             'description' => 'required',
             'location' => 'required',
-            'tags' => 'required',
+            //'tags' => 'required',
         ]);
 
         if($request->hasFile('foto')) {
