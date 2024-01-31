@@ -18,18 +18,22 @@ class BlogTagSeeder extends Seeder
     {
         $blogIds = Blog::pluck('id');
         $tagIds = Tag::pluck('id');
-
+    
         foreach ($blogIds as $blogId) {
-            $tagIdsForBlog = $tagIds->random(random_int(1, 3));
-
-            foreach ($tagIdsForBlog as $tagId) {
-                DB::table('blogs_tags')->insert([
-                    'blog_id' => $blogId,
-                    'tag_id' => $tagId,
-                    'created_at' => now(),
-                    'updated_at' => now(),
-                ]);
+            if ($tagIds->count() > 0) {
+                $numberOfTags = random_int(1, min(3, $tagIds->count()));
+                $tagIdsForBlog = $tagIds->random($numberOfTags);
+    
+                foreach ($tagIdsForBlog as $tagId) {
+                    DB::table('blogs_tags')->insert([
+                        'blog_id' => $blogId,
+                        'tag_id' => $tagId,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
             }
         }
     }
+    
 }
