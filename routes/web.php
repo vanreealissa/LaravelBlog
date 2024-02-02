@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Http\Request;
 use Spatie\Feed\Http\FeedController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CommentController;
@@ -43,7 +44,7 @@ use Illuminate\Routing\Route as RoutingRoute;
     Route::get('/blogs/manage', [BlogController::class,'manage'])->middleware('auth');
 
    // 1 blog
-   Route::get('/blogs/{blog}', [BlogController::class, 'show']);
+   Route::get('/blogs/{blog}', [BlogController::class, 'show'])->name('blogs.show');
 
     // laat register zien
     Route::get('/register', [UserController::class, 'create'])->middleware('guest');;
@@ -62,6 +63,8 @@ use Illuminate\Routing\Route as RoutingRoute;
 
     Route::post('/blogs/{blogId}/comments', [CommentController::class, 'store'])->middleware('auth')->name('comments.store');
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->middleware('auth')->name('comments.destroy');
+
+    Route::resource('tags', TagController::class);
 
 
     Route::get('/feed', [FeedController::class, 'index']);
