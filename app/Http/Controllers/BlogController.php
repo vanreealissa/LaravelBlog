@@ -30,42 +30,37 @@ class BlogController extends Controller
         return view('blogs.create', compact('tags'));
     }
 
-
-
-
     //data opslaan
     public function store(Request $request) {
-        
         $formFields = $request->validate([
-            'title' =>  ['required', Rule::unique('blogs', 'title') ],
+            'title' => ['required', Rule::unique('blogs', 'title')],
             'description' => 'required',
-            //'tags' => 'required',
             'location' => 'required',
         ]);
-
-        if($request->hasFile('foto')) {
+    
+        if ($request->hasFile('foto')) {
             $formFields['foto'] = $request->file('foto')->store('fotos', 'public');
         }
-
-        $tagIds = $request->input('tags', []);
-        $newTags = explode(',', $request->input('new_tags'));
     
+        $blog = auth()->user()->blogs()->create($formFields);
+    
+        $tags = $request->input('tags', []);
+        $blog->tags()->attach($tags);
+    
+        $newTags = $request->input('new_tags', []);
+    
+        $newTags = explode(',', $request->input('new_tags')); 
+        $newTags = array_map('trim', $newTags);
+
         foreach ($newTags as $tagName) {
-            $tagName = trim($tagName);
-    
-            if ($tagName !== '') {
-                $tag = Tag::firstOrCreate(['name' => $tagName]);
-                $tagIds[] = $tag->id;
-            }
+            $tag = Tag::firstOrCreate(['name' => $tagName]);
+            $blog->tags()->attach($tag->id);
         }
-
-        $formFields['user_id'] = auth()->id();
-
-        Blog::create($formFields);
-
-        return redirect('/')->with('message', 'Blog is succesvol toegevoegd!');
+    
+        return redirect('/')->with('message', 'Blog is aangemaakt!');
     }
 
+    
     public function edit(Blog $blog) {
         $tags = Tag::all();
         $blog->load('tags');
@@ -73,27 +68,40 @@ class BlogController extends Controller
     
     } 
 
-    public function update(Request $request, Blog $blog) {
-
-        if($blog->user_id != auth()->id()) {
-            return back()->with('message', 'U heeft niet de rechten om dit blog te bewerken!');
-        }
-
+    public function update(Request $request, Blog $blog, Tag $tag) {
         $formFields = $request->validate([
-            'title' =>  ['required'],
+            'title' => 'required',
             'description' => 'required',
             'location' => 'required',
-            //'tags' => 'required',
+            'tags' => 'array',
         ]);
-
-        if($request->hasFile('foto')) {
+    
+        if ($request->hasFile('foto')) {
             $formFields['foto'] = $request->file('foto')->store('fotos', 'public');
         }
-
-       $blog->update($formFields);
-
-        return back()->with('message', 'Blog is succesvol veranderd!');
+    
+        $blog->update($formFields);
+    
+        $tags = $request->input('tags', []);
+        $newTags = explode(',', $request->input('new_tags'));
+    
+        foreach ($newTags as $tagName) {
+            $tagName = trim($tagName);
+    
+            if ($tagName !== '') {
+                $tag = Tag::firstOrCreate(['name' => $tagName]);
+                $tags[] = $tag->id;
+            }
+        }
+        
+        $blog->tags()->sync($tags);
+    
+        return back()->with('message', 'Blog is successfully updated!');
     }
+    
+    
+    
+    
 
     public function destroy(Blog $blog){
 
