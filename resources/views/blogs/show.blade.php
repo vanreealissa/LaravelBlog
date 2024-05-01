@@ -10,8 +10,9 @@
     <div class="flex flex-col items-center justify-center text-center">
         <img class="w-48 mr-6 mb-6" src="{{$blog->foto ? asset('storage/' . $blog->foto) : asset('/images/no-image.png')}}" alt="" />
         <h3 class="text-2xl mb-2">{{$blog->title}}</h3>
-        <x-blog-tags :tagsCsv="$blog->tags" />
-        <br>
+        <span class="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+            {{ $blog->tags->implode('name', ', ') }}
+        </span>        <br>
         <div>
             <h3 class="text-3xl font-bold mb-4">
                 Blog:

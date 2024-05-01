@@ -44,12 +44,18 @@ class="bg-gray-50 border border-gray-200 p-10 rounded max-w-lg mx-auto mt-24"
 
     <div class="mb-6">
         <label for="company" class="inline-block text-lg mb-2">Tags</label>
-        <input type="text" class="border border-gray-200 rounded p-2 w-full"name="tags" value="{{$blog->tags}}" placeholder="Example: Stalendeur, Stalendeur, Stalendeur, etc"/>
-
-        @error('tags')
-        <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-        @enderror
+        <select name="tags[]" multiple class="border border-gray-200 rounded p-2 w-full">
+            @foreach($tags as $tag)
+                <option value="{{ $tag->id }}" {{ in_array($tag->id, $blog->tags->pluck('id')->toArray()) ? 'selected' : '' }}>
+                    {{ $tag->name }}
+                </option>
+            @endforeach
+        </select>
+        
+        <input type="text" name="new_tags" class="border border-gray-200 rounded p-2 w-full mt-2" placeholder="Voeg nieuwe tags toe"/>
+        
     </div>
+    
 
     <div class="mb-6">
         <label for="logo" class="inline-block text-lg mb-2">Bijpassende foto</label>
