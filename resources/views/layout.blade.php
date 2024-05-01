@@ -23,7 +23,7 @@
                 theme: {
                     extend: {
                         colors: {
-                            laravel: "#0c7da0",
+                            laravel: "#292747",
                         },
                     },
                 },
