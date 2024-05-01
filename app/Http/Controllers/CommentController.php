@@ -24,7 +24,7 @@ class CommentController extends Controller
 
         $comment->save();
 
-        return redirect()->back()->with('success', 'Comment posted successfully.');
+        return redirect()->back()->with('Success', 'Comment posted successfully.');
     }
 
     public function destroy($commentId)
@@ -33,9 +33,9 @@ class CommentController extends Controller
 
         if (Auth::id() === $comment->user_id) {
             $comment->delete();
-            return redirect()->back()->with('success', 'Reactie succesvol verwijderd.');
+            return redirect()->back()->with('Success', 'Reactie succesvol verwijderd.');
         } else {
-            return redirect()->back()->with('error', 'Je hebt geen toestemming om deze reactie te verwijderen.');
+            return redirect()->back()->with('Error', 'Je hebt geen toestemming om deze reactie te verwijderen.');
         }
     }
 }
