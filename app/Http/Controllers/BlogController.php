@@ -94,14 +94,10 @@ class BlogController extends Controller
             }
         }
         
-        $blog->tags()->sync($tags);
+        $blog->tags()->sync($tags); 
     
         return back()->with('message', 'Blog is successfully updated!');
     }
-    
-    
-    
-    
 
     public function destroy(Blog $blog){
 

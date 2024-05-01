@@ -23,7 +23,7 @@
                 theme: {
                     extend: {
                         colors: {
-                            laravel: "#292747",
+                            laravel: "#0c7da0",
                         },
                     },
                 },
@@ -34,7 +34,7 @@
     <body class="mb-48">
         <nav class="flex justify-between items-center mb-4">
             <a href="/"
-                ><img class="w-24" src="{{asset('images/gers.jpeg')}}" alt="" /> 
+                ><img class="w-24" src="{{asset('images/images.png')}}" alt="" /> 
             </a>
             <ul class="flex space-x-6 mr-6 text-lg">
                 @auth
